@@ -160,6 +160,8 @@ def scrape_ccm_html() -> bool:
                 continue
 
             linha_nome = elem.get_text(strip=True)
+            if not linha_nome.startswith("Linha"):
+                continue
             status = "normal"
             descricao = ""
 
