@@ -217,8 +217,23 @@ def main():
     app.add_handler(CommandHandler("manutencao", manutencao))
     app.add_error_handler(error_handler)
 
-    # Notificação a cada 2 horas; primeira disparo após 10 minutos
-    app.job_queue.run_repeating(notificacao_periodica, interval=7200, first=600)
+    #Notificações periodicas, Com foco em horarios de pico (Manhã e Tarde)
+    #para garantir que os usuários recebam atualizações relevantes quando mais precisam.
+    from datetime import time
+    import pytz
+
+    fuso= pytz.timezone("America/Sao_Paulo")
+    app.job_queue.run_daily(notificacao_periodica, time=time(5, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(6, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(8, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(10, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(12, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(14, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(16, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(17, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(18, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(20, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(22, 0, tzinfo=fuso))
 
     print("🤖 Bot iniciado!")
     app.run_polling()
