@@ -126,9 +126,8 @@ async def handle_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     return MENU_PRINCIPAL
 
-
+    #Monta mensagem de status para notificação periódica."""
 def _montar_mensagem_status() -> str:
-    """Monta mensagem de status para notificação periódica."""
     linhas_problema = obter_linhas_com_problema()
     if not linhas_problema:
         return "✅ *Atualização Metro/Trem SP*\n\nTodas as linhas estão operando normalmente."
@@ -180,25 +179,6 @@ async def manutencao(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if str(update.effective_chat.id) != str(CHAT_ID):
         return
 
-
-              ##MENSAGEM DE MANUTENÇÃO##
-              ##MANDAR MENSAGEM DE MANUTENÇÃO PARA TODOS OS USUARIOS##
-              ##/manutencao (comando para aviasr usuarios que está em manutenção)
-    texto = " ".join(context.args) if context.args else "O bot estará temporariamente offline para manutenção. Voltaremos em breve."
-    mensagem = f"🔴 *Aviso de Manutenção*\n\n{texto}"
-
-    usuarios = obter_todos_usuarios()
-    enviados = 0
-    for cid in usuarios:
-        try:
-            await context.bot.send_message(chat_id=cid, text=mensagem, parse_mode="Markdown")
-            enviados += 1
-        except Exception as e:
-            logger.warning(f"Falha ao notificar {cid}: {e}")
-
-    await update.message.reply_text(f"✅ Mensagem enviada para {enviados} usuário(s).")
-
-
 def main():
     criar_tabelas()
     atualizar_status_real()
@@ -222,18 +202,21 @@ def main():
     from datetime import time
     import pytz
 
+    DIAS_UTEIS= [0, 1, 2, 3, 4]  # Segunda a Sexta
+
     fuso= pytz.timezone("America/Sao_Paulo")
-    app.job_queue.run_daily(notificacao_periodica, time=time(5, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(6, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(8, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(10, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(12, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(14, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(16, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(17, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(18, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(20, 0, tzinfo=fuso))
-    app.job_queue.run_daily(notificacao_periodica, time=time(22, 0, tzinfo=fuso))
+    app.job_queue.run_daily(notificacao_periodica, time=time(5, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(6, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(7, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(8, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(10, 0, tzinfo=fuso)),days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(12, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(14, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(16, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(17, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(18, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(20, 0, tzinfo=fuso)), days=DIAS_UTEIS
+    app.job_queue.run_daily(notificacao_periodica, time=time(22, 0, tzinfo=fuso)), days=DIAS_UTEIS
 
     print("🤖 Bot iniciado!")
     app.run_polling()
