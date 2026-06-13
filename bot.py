@@ -205,18 +205,19 @@ def main():
     DIAS_UTEIS= [0, 1, 2, 3, 4]  # Segunda a Sexta
 
     fuso= pytz.timezone("America/Sao_Paulo")
-    app.job_queue.run_daily(notificacao_periodica, time=time(5, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(6, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(7, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(8, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(10, 0, tzinfo=fuso)),days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(12, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(14, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(16, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(17, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(18, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(20, 0, tzinfo=fuso)), days=DIAS_UTEIS
-    app.job_queue.run_daily(notificacao_periodica, time=time(22, 0, tzinfo=fuso)), days=DIAS_UTEIS
+
+    app.job_queue.run_daily(notificacao_periodica, time=time(5, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(6, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(7, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(8, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(10, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(12, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(14, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(16, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(17, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(18, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(20, 0, tzinfo=fuso), days=DIAS_UTEIS)
+    app.job_queue.run_daily(notificacao_periodica, time=time(22, 0, tzinfo=fuso), days=DIAS_UTEIS)
 
     print("🤖 Bot iniciado!")
     app.run_polling()
